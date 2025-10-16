@@ -13,7 +13,7 @@ type Inputs = {
 
 const apiUrl = import.meta.env.VITE_API_URL
 
-export default function Cadastro() {
+function Cadastro() {
     const { register, handleSubmit} = useForm<Inputs>()
     const { logaUsuario } = useUsuarioStore()
     const navigate = useNavigate()
@@ -120,3 +120,5 @@ export default function Cadastro() {
         </section>
     )
 }
+
+export default Cadastro
