@@ -14,11 +14,9 @@ type Inputs = {
 const apiUrl = import.meta.env.VITE_API_URL
 
 export default function Cadastro() {
-    const { register, handleSubmit, watch } = useForm<Inputs>()
+    const { register, handleSubmit} = useForm<Inputs>()
     const { logaUsuario } = useUsuarioStore()
     const navigate = useNavigate()
-
-    const senha = watch("senha")
 
     async function registraUsuario(data: Inputs) {
         if (data.senha !== data.confirmaSenha) {
