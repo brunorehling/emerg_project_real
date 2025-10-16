@@ -1,7 +1,7 @@
 import { TiDeleteOutline } from "react-icons/ti"
 
 import type { ReviewType } from "../../utils/ReviewType"
-import { useAdminStore } from "../context/adminContext"
+import { useAdminStore } from "../context/AdminContext"
 
 type listaCarroProps = {
   review: ReviewType;
