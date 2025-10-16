@@ -25,10 +25,14 @@ export function BotaoDenunciar({ comentarioId, usuarioId }: BotaoDenunciarProps)
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ comentarioId, usuarioId, motivo }),
       });
-      if (response.status == 200){      
+      if (response.status === 201) {
         setMensagem("Comentário denunciado com sucesso!");
         setMotivo("");
-        setAbrir(false);}
+        setTimeout(() => {
+          setAbrir(false);
+          setMensagem("");
+        }, 1500);
+      }
     } catch (error) {
       console.error(error);
       setMensagem("Erro ao enviar denúncia.");
@@ -39,8 +43,7 @@ export function BotaoDenunciar({ comentarioId, usuarioId }: BotaoDenunciarProps)
     <div className="relative inline-block">
       <button
         onClick={() => setAbrir(!abrir)}
-        className="text-sm text-red-500 hover:underline"
-      >
+        className="text-sm text-red-500 hover:underline">
         Denunciar
       </button>
 

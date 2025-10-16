@@ -9,9 +9,6 @@ export function CardLivro({data}: {data: LivroType}) {
                     {data.nome}
                 </h5>
                 <p className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Id do Livro: {Number(data.id)}</p>
-                <p className="mb-3 font-extrabold text-gray-700 dark:text-gray-400">
-                    Nota: {Number(data.nota)}
-                </p>
             </div>
         </div>
     )

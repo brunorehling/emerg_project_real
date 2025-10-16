@@ -17,9 +17,15 @@ export function InputPesquisa({ setReviews }: InputPesquisaProps) {
 
     async function enviaPesquisa(data: Inputs) {
         // alert(data.termo)
-        if (data.termo.length < 2) {
+        if (data.termo.length > 0 && data.termo.length < 2) {
             toast.error("Informe, no mínimo, 2 caracteres")
             return
+        }
+        else if (data.termo.length == 0) {
+             const response = await fetch(`${apiUrl}/reviews`) 
+             const dados = await response.json()
+        // console.log(dados)
+        setReviews(dados)
         }
 
         const response = await fetch(`${apiUrl}/reviews/pesquisa/${data.termo}`)

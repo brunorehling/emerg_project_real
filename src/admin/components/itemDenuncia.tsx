@@ -19,21 +19,35 @@ export default function ItemDenuncia({ denuncia, denuncias, setDenuncias }: Item
       return
     }
 
-    if (confirm(`Deseja realmente apagar o comentário denunciado?`)) {
-      const response = await fetch(`${apiUrl}/comentarios/${denuncia.comentario.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${admin.token}`,
-        },
-      })
+    if (!denuncia.comentario.review) {
+      alert("Comentário sem review associado, não é possível deletar.")
+      return
+    }
 
-      if (response.ok) {
-        const novas = denuncias.filter(d => d.id !== denuncia.id)
-        setDenuncias(novas)
-        alert("Comentário apagado com sucesso!")
-      } else {
-        alert("Erro: o comentário não foi excluído.")
+    if (confirm(`Deseja realmente apagar o comentário denunciado?`)) {
+      try {
+        const response = await fetch(
+          `${apiUrl}/reviews/${denuncia.comentario.review.id}/comentarios/${denuncia.comentario.id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${admin.token}`,
+            },
+          }
+        )
+
+        if (response.ok) {
+          const novas = denuncias.filter(d => d.id !== denuncia.id)
+          setDenuncias(novas)
+          alert("Comentário apagado com sucesso!")
+        } else {
+          const data = await response.json()
+          alert("Erro: " + (data.error || "O comentário não foi excluído."))
+        }
+      } catch (err) {
+        console.error(err)
+        alert("Erro de rede ao tentar excluir o comentário.")
       }
     }
   }

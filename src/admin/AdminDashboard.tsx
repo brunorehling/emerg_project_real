@@ -4,8 +4,8 @@ import { VictoryPie, VictoryLabel, VictoryTheme } from "victory";
 
 const apiUrl = import.meta.env.VITE_API_URL
 
-type graficoAdminDenuncias = {
-  admin: string
+type graficoAutorLivro = {
+  autor: string
   num: number
 }
 
@@ -21,7 +21,7 @@ type geralDadosType = {
 }
 
 export default function AdminDashboard() {
-  const [AdminDenuncia, setAdminDenuncia] = useState<graficoAdminDenuncias[]>([])
+  const [AutorLivro, setAutorLivro] = useState<graficoAutorLivro[]>([])
   const [livrosReviews, setLivrosReviews] = useState<graficoLivrosMaisComentados[]>([])
   const [dados, setDados] = useState<geralDadosType>({} as geralDadosType)
 
@@ -33,24 +33,26 @@ export default function AdminDashboard() {
     }
     getDadosGerais()
 
-    async function getDadosGraficoMarca() {
-      const response = await fetch(`${apiUrl}/dashboard/admDenuncias`)
+    async function getDadosAutoresLivros() {
+      const response = await fetch(`${apiUrl}/dashboard/AutoresPorLivro`)
       const dados = await response.json()
-      setAdminDenuncia(dados)
+      console.log("AutoresPorLivro:", dados)
+      setAutorLivro(dados)
     }
-    getDadosGraficoMarca()
+    getDadosAutoresLivros()
 
     async function getDadosGraficoCliente() {
       const response = await fetch(`${apiUrl}/dashboard/LivrosReviews`)
       const dados = await response.json()
+      console.log("LivrosReviews", dados)
       setLivrosReviews(dados)
     }
     getDadosGraficoCliente()
 
   }, [])
 
-  const listaAdminsPorDenuncia = AdminDenuncia.map(item => (
-    { x: item.admin, y: item.num }
+  const listaAutoresPorLivro = AutorLivro.map(item => (
+    { x: item.autor, y: item.num }
   ))
 
   const listalivrosComMaisReviews = livrosReviews.map(item => (
@@ -85,14 +87,14 @@ export default function AdminDashboard() {
             standalone={false}
             width={400}
             height={400}
-            data={listaAdminsPorDenuncia}
+            data={listaAutoresPorLivro}
             innerRadius={50}
             labelRadius={80}
             theme={VictoryTheme.clean}
             style={{
               labels: {
-                fontSize: 10,
-                fill: "#fff",
+                fontSize: 7,
+                fill: "#ffffffff",
                 fontFamily: "Arial",
                 fontWeight: "bold"
               }
@@ -101,14 +103,14 @@ export default function AdminDashboard() {
           <VictoryLabel
             textAnchor="middle"
             style={{
-              fontSize: 12,
+              fontSize: 8,
               fill: "#f00",
               fontFamily: "Arial",
               fontWeight: "bold"
             }}
             x={200}
             y={200}
-            text={["Veículos", "por Marca"]}
+            text={["Autores", "por Livro Cadastrado"]}
           />
         </svg>
 
@@ -140,7 +142,7 @@ export default function AdminDashboard() {
             }}
             x={200}
             y={200}
-            text={["Clientes", "por Cidade"]}
+            text={["Livros", "Com mais reviews"]}
           />
         </svg>
 

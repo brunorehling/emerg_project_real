@@ -55,13 +55,13 @@ export default function AdminLogin() {
   return (
     <main className="max-w-screen-xl flex flex-col items-center mx-auto p-6">
       <img
-        src="../../fusca.png"
+        src="../../livro.webp"
         alt="Revenda"
         style={{ width: 240 }}
         className="d-block"
       />
       <div className="max-w-sm w-full">
-        <h1 className="text-3xl font-bold my-8">Admin: Revenda Herbie</h1>
+        <h1 className="text-3xl font-bold my-8">Admin: BookLog</h1>
         <form
           className="max-w-sm mx-auto"
           onSubmit={handleSubmit(verificaLogin)}

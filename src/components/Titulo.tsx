@@ -17,10 +17,10 @@ export default function Titulo() {
     }
 
     return (
-        <nav className="border-orange-500 bg-red-400 dark:bg-orange-800 dark:border-orange-700">
+        <nav className="border-orange-500 bg-red-400 dark:bg-gray-500 dark:border-orange-700">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="./livro.webp" className="h-12" alt="Logo Herbie" />
+                    <img src="./public/livro.webp" className="h-12" alt="Logo livro" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                         Booklog
                     </span>
@@ -41,6 +41,9 @@ export default function Titulo() {
                                     </span>&nbsp;&nbsp;
                                     <Link to="/review" className="text-white font-bold bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:outline-none focus:ring-gray-400 rounded-lg text-sm w-full sm:w-auto px-3 py-2 text-center dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
                                         Fazer Review
+                                    </Link>&nbsp;&nbsp;
+                                    <Link to="/minhasReviews" className="text-white font-bold bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:outline-none focus:ring-gray-400 rounded-lg text-sm w-full sm:w-auto px-3 py-2 text-center dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                                        Minhas Reviews
                                     </Link>&nbsp;&nbsp;
                                     <span className="cursor-pointer font-bold text-gray-600"
                                         onClick={clienteSair}>

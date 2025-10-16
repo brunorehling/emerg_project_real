@@ -6,9 +6,13 @@ import { Toaster } from 'sonner'
 export default function Layout() {
   return (
     <>
-      <Titulo />
-      <Outlet />
-      <Toaster richColors position="top-center" />
+      <div
+      className="w-full h-screen bg-blue-900 bg-cover bg-center"
+    >
+        <Titulo />
+        <Outlet />
+        <Toaster richColors position="top-center" />
+      </div>
     </>
   )
 }

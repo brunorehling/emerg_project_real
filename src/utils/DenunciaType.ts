@@ -5,6 +5,7 @@ export type DenunciaType = {
   createdAt: string
   resolvidoPor?: string | null
   comentario: {
+    review: { id: number } | null
     id: number
     texto: string
     usuario: {

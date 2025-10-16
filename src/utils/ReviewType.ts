@@ -9,7 +9,7 @@ export type ReviewType = {
     nota : number
     createdAt: Date
     updatedAt: Date
-    userId?: number
+    usuarioId?: number
     livros_id?: number
     usuario?: UsuarioType
     livro?: LivroType

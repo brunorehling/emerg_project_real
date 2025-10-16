@@ -18,6 +18,7 @@ import ListaDenuncias from './admin/AdminDenuncias.tsx';
 
 import Layout from './Layout.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import MinhasReviews from './minhasReviews.tsx'
 
 const rotas = createBrowserRouter([
   {
@@ -43,6 +44,7 @@ const rotas = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'detalhes/:reviewId', element: <Detalhes /> },
       { path: 'review', element: <Review /> },
+      { path: 'minhasReviews', element: <MinhasReviews /> },
     ],
   },
 ])
