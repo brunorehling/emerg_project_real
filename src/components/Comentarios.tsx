@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { BotaoDenunciar } from './botaoDenunciar'
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 export type ComentarioType = {
   id: number
   conteudo: string
@@ -27,7 +29,7 @@ export default function SistemaComentarios({ reviewId, usuarioId }: SistemaComen
 
   const buscarComentarios = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/reviews/${reviewId}/comentarios`)
+      const response = await fetch(`${apiUrl}/reviews/${reviewId}/comentarios`)
       if (!response.ok) throw new Error('Erro ao buscar comentários')
       const data = await response.json()
       setComentarios(data)
@@ -44,7 +46,7 @@ export default function SistemaComentarios({ reviewId, usuarioId }: SistemaComen
       setCarregando(true)
       setErro(null)
       
-      const response = await fetch(`http://localhost:3000/reviews/${reviewId}/comentarios`, {
+      const response = await fetch(`${apiUrl}/reviews/${reviewId}/comentarios`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
