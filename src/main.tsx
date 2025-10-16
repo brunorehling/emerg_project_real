@@ -19,7 +19,7 @@ import ListaDenuncias from './admin/AdminDenuncias.tsx';
 import Layout from './Layout.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MinhasReviews from './minhasReviews.tsx'
-//import Cadastro from './Cadastro.tsx'
+import Cadastro from './Cadastro.tsx'
 
 const rotas = createBrowserRouter([
   {
@@ -43,7 +43,7 @@ const rotas = createBrowserRouter([
     children: [
       { index: true, element: <App /> },
       { path: 'login', element: <Login /> },
-      //{ path: 'cadastro', element: <Cadastro /> },
+      { path: 'cadastro', element: <Cadastro /> },
       { path: 'detalhes/:reviewId', element: <Detalhes /> },
       { path: 'review', element: <Review /> },
       { path: 'minhasReviews', element: <MinhasReviews /> },
