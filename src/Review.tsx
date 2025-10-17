@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useUsuarioStore } from "./context/ClienteContext";
 import type { LivroType } from "./utils/LivroType";
-import { CardLivro } from "./components/cardLivro";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -10,25 +9,20 @@ type FormData = {
   titulo: string;
   conteudo?: string;
   nota: number;
-  livros_id: number;
+  livroId: number;
 };
 
 export default function CriarReview() {
-  const { register, handleSubmit, reset } = useForm<FormData>();
-   const [livros, setLivros] = useState<LivroType[]>([]);
+  const { register, handleSubmit, reset, setValue } = useForm<FormData>();
+  const [livros, setLivros] = useState<LivroType[]>([]);
   const { usuario } = useUsuarioStore();
 
-   useEffect(() => {
+  useEffect(() => {
     fetch(`${apiUrl}/livros`)
       .then((res) => res.json())
       .then((data) => setLivros(data))
       .catch((err) => console.error("Erro ao carregar livros:", err));
   }, []);
-
-  const listaLivros = livros.map((livro) => (
-    <CardLivro data={livro} key={livro.id} />
-  ));
-  
 
   async function onSubmit(data: FormData) {
     if (!usuario?.id) {
@@ -41,10 +35,11 @@ export default function CriarReview() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...data,
+          titulo: data.titulo,
+          conteudo: data.conteudo,
           nota: Number(data.nota),
-          livros_id: Number(data.livros_id),
-          userId: usuario.id,
+          livros_id: Number(data.livroId),
+          usuarioId: usuario.id,
         }),
       });
 
@@ -54,7 +49,6 @@ export default function CriarReview() {
         reset();
       } else {
         const errorData = await response.json();
-        console.error("Erro ao criar review:", errorData);
         alert(`Erro ao criar review: ${errorData?.error || JSON.stringify(errorData, null, 2)}`);
       }
     } catch (error) {
@@ -64,29 +58,84 @@ export default function CriarReview() {
   }
 
   return (
-    <div className="flex justify-between mx-10 my-10">
-      <div className="flex flex-col w-300 h-600 items-center">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4 w-1/2 border p-6 bg-white">
-          <label>Título</label>
-          <input type="text" {...register("titulo", { required: true })} className="border"/>
+    <div className="flex flex-col md:flex-row gap-8 mx-6 my-10">
+      
+      {/* Formulário */}
+      <form 
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full md:w-1/3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow flex flex-col gap-4"
+      >
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Criar Review</h2>
 
-          <label>Conteúdo</label>
-          <textarea {...register("conteudo")} className="border"/>
+        <label className="text-gray-700 dark:text-gray-300">Título</label>
+        <input 
+          type="text" 
+          {...register("titulo", { required: true })} 
+          className="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        />
 
-          <label>Nota (0-5)</label>
-          <input type="number" min={0} max={5} {...register("nota", { required: true })} className="border"/>
+        <label className="text-gray-700 dark:text-gray-300">Conteúdo</label>
+        <textarea 
+          {...register("conteudo")} 
+          className="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        />
 
-          <label>ID do Livro</label>
-          <input type="number" {...register("livros_id", { required: true })} className="border"/>
+        <label className="text-gray-700 dark:text-gray-300">Nota (0-5)</label>
+        <input 
+          type="number" 
+          min={0} 
+          max={5} 
+          {...register("nota", { required: true })} 
+          className="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        />
 
-          <button type="submit" className="btn bg-blue-500 text-white py-2 px-4 rounded">
-            Criar Review
-          </button>
-        </form>
+        <label className="text-gray-700 dark:text-gray-300">Livro</label>
+        <input 
+          type="text" 
+          list="livros-list" 
+          onChange={(e) => {
+            const livroSelecionado = livros.find(l => l.nome === e.target.value);
+            if (livroSelecionado) setValue("livroId", livroSelecionado.id);
+          }}
+          placeholder="Digite o nome do livro"
+          className="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        />
+        <datalist id="livros-list">
+          {livros.map(livro => (
+            <option key={livro.id} value={livro.nome} />
+          ))}
+        </datalist>
+
+        <button 
+          type="submit" 
+          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition mt-2"
+        >
+          Criar Review
+        </button>
+      </form>
+
+      {/* Lista de livros */}
+      <div className="flex-1 max-w-3xl">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Livros</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-2 justify-start">
+          {livros.map((livro) => (
+            <div 
+              key={livro.id} 
+              className="border rounded-lg p-1 bg-white dark:bg-gray-700 shadow hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200 flex flex-col items-center w-28"
+            >
+              {livro.foto && (
+                <img 
+                  src={livro.foto} 
+                  alt={livro.nome} 
+                  className="w-20 h-28 object-cover rounded mb-1"
+                />
+              )}
+              <span className="text-center text-gray-900 dark:text-white font-medium text-sm">{livro.nome}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="flex flex-col gap-2">        
-        {listaLivros}
-      </div>
+
     </div>
   );
 }

@@ -42,7 +42,9 @@ export default function App() {
   }, []);
 
   const listaReviews = reviews.map((review) => (
-    <CardReview data={review} key={review.id} />
+    <div key={review.id} className="w-[calc(20%-0.75rem)]">
+      <CardReview data={review} />
+    </div>
   ));
 
   return (
@@ -55,7 +57,10 @@ export default function App() {
             em destaque
           </span>
         </h1>
-        <div className="flex  gap-3">{listaReviews}</div>
+
+        <div className="flex flex-wrap gap-3">
+          {listaReviews}
+        </div>
       </div>
     </>
   );
