@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { toast } from "sonner"
 import { useUsuarioStore } from "./context/ClienteContext"
+import "./index.css"
 
 type Inputs = {
     email: string
