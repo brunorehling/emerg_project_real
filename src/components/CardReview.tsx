@@ -13,7 +13,7 @@ export function CardReview({ data }: { data: ReviewType }) {
       )}
       <div className="flex-1 p-4 flex flex-col justify-between">
         <div>
-          <h5 className="mb-1 text-lg font-bold text-gray-900">
+          <h5 style={{ color: "white" }} className="mb-1 text-lg font-bold text-gray-900">
             {data.usuario?.nome}
           </h5>
           <h5 className="mb-2 text-md font-semibold text-gray-900">
