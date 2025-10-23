@@ -53,7 +53,7 @@ export default function App() {
       <div className="max-w-7xl mx-auto">
         <h1 className="mb-4 mx-80 text-3xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-6xl dark:text-white">
           Reviews{" "}
-          <span className="underline underline-offset-3 decoration-8 decoration-black dark:decoration-black">
+          <span className=" decoration-8 decoration-black dark:decoration-black">
             em destaque
           </span>
         </h1>
