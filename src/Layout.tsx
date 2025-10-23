@@ -7,7 +7,8 @@ export default function Layout() {
   return (
     <>
       <div
-      className="w-full h-screen bg-blue-900 bg-cover bg-center"
+      style={{ backgroundColor: "#B8BEFF80" }}
+      className="w-full h-screen bg-cover"
     >
         <Titulo />
         <Outlet />
