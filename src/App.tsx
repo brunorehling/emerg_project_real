@@ -51,7 +51,7 @@ export default function App() {
     <>
       <InputPesquisa setReviews={setReviews} />
       <div className="max-w-7xl mx-auto">
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-6xl dark:text-white">
+        <h1 className="mb-4 mx-80 text-3xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-6xl dark:text-white">
           Reviews{" "}
           <span className="underline underline-offset-3 decoration-8 decoration-black dark:decoration-black">
             em destaque
