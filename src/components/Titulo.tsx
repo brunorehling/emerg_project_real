@@ -17,7 +17,7 @@ export default function Titulo() {
     }
 
     return (
-        <nav className="border-black bg-gray-500 dark:bg-gray-500 dark:border-black">
+        <nav className="border-black bg-orange-500 dark:bg-orange-500 dark:border-black">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="./livro.webp" className="h-12" alt="Logo livro" />
