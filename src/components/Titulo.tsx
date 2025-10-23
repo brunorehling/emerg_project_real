@@ -17,7 +17,7 @@ export default function Titulo() {
     }
 
     return (
-        <nav className="w-full border-black bg-[#8A331E] dark:[#8A331E] dark:border-black">
+        <nav style={{ backgroundColor: "#8A331E" }} className=" border-black dark:border-black">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="./livro.webp" className="h-12" alt="Logo livro" />
